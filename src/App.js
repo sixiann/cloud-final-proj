@@ -1,27 +1,16 @@
 import './App.css';
+import * as React from 'react';
 import SignIn from './components/SignIn';
 import Dashboard from './components/dashboard/Dashboard'
+import Home from './components/home/Home'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   return (
     <div className="App">
       {/* <SignIn/> */}
-      <Dashboard />
-
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+      {/* <Dashboard /> */}
+      {isLoggedIn?<Home/>:<Dashboard />}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
 import MuiAppBar from '@mui/material/AppBar';
@@ -9,7 +10,6 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -19,15 +19,17 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import SavedStartups from './SavedStartups';
+import Card from './Card'
+
+const homepageText = 'StartupsNYC amplifies your startup journey with intuitive ecosystem mapping. It generates visualizations that complement your research and provide further insights into the NYC entrepreurship ecosystem.'
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        StartupsNYC
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -94,7 +96,7 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        {/* <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -119,15 +121,14 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Home
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+              <Button color="inherit">Log In</Button>
             </IconButton>
           </Toolbar>
-        </AppBar> */}
+        </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -145,9 +146,10 @@ export default function Dashboard() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {/* {secondaryListItems} */}
           </List>
         </Drawer>
+
+
         <Box
           component="main"
           sx={{
@@ -161,41 +163,77 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
+
+
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
+
+
+          {/* <Typography variant="h1" gutterBottom sx={{ width: '60%', textAlign: 'left', fontWeight: 'bold' }}>
+            Discover the Startups of NYC
+          </Typography>
+          <div style={{ textAlign: 'left' }}>
+            <Button variant="contained" color="primary">
+              Log In
+            </Button>
+          </div> */}
+
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ width: '60%' }}>
+              <Typography variant="h1" gutterBottom sx={{ textAlign: 'left', fontWeight: 'bold' }}>
+                Discover the Startups of NYC
+              </Typography>
+              <div style={{ textAlign: 'left' }}>
+                <Button sx={{width: 150, height: 50}} variant="contained" color="primary">
+                  Log In
+                </Button>
+              </div>
+            </div>
+
+            {/* <div style={{ width: '40%', textAlign: 'right', paddingLeft: 40 }}>
+            <img
+              src="startup-3.jpeg" // Replace this URL with your image URL
+              alt="Your Image Alt Text"
+              style={{ borderRadius: '10%', width: '100%', height: 'auto' }} // Adjust styling as needed
+            />
+            </div> */}
+          </div>
+
+
+          <Divider sx={{ marginY: 2, paddingTop: 10 }} /> {/* Adds a divider with vertical margin */}
+          <Typography variant="h4" gutterBottom sx={{ width: '100%', textAlign: 'left', fontStyle: 'italic', fontWeight: 'bold', padding: '100px' }}>
+            {homepageText}
+          </Typography>
+            {/* <Grid container spacing={3}>
+
+
+
+
+
+            </Grid> */}
+
+            <Grid container spacing={4}>
+              {/* First Card */}
+              <Grid item xs={6} sm={3}> {/* xs={6} for small screens, sm={3} for larger screens */}
+                <Card image='icon1.png' title='Custom Dashboard' description='Create your own custom dashboard with your favorite startups and investors.'/>
               </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
+
+              {/* Second Card */}
+              <Grid item xs={6} sm={3}>
+                <Card image='icon2.png' title='Startups & Investors' description='Develop a comprehensive overview of the biggest players in NYC’s startup space.'/>
               </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
-                </Paper>
+
+              {/* Third Card */}
+              <Grid item xs={6} sm={3}>
+                <Card image='icon3.png' title='Industry' description='Learn about the most promising startups in an industry of your choosing'/>
+              </Grid>
+
+              {/* Fourth Card */}
+              <Grid item xs={6} sm={3}>
+                <Card image='icon4.png' title='News & Events' description='Stay up to date with the latest new and events in the NYC startup ecosystem.'/>
               </Grid>
             </Grid>
+
+
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
@@ -203,3 +241,4 @@ export default function Dashboard() {
     </ThemeProvider>
   );
 }
+

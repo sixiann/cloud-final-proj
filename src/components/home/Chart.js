@@ -1,71 +1,87 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import React, { PureComponent } from 'react';
+import { PieChart, Pie, Sector, Cell, ResponsiveContainer } from 'recharts';
 import Title from './Title';
 
-// Generate Sales Data
-function createData(time, amount) {
-  return { time, amount };
-}
-
 const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00', undefined),
+  { name: 'Group A', value: 400 },
+  { name: 'Group B', value: 300 },
+  { name: 'Group C', value: 300 },
+  { name: 'Group D', value: 200 },
 ];
 
-export default function Chart() {
-  const theme = useTheme();
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
   return (
-    <React.Fragment>
-      <Title>Today</Title>
-      <ResponsiveContainer>
-        <LineChart
-          data={data}
-          margin={{
-            top: 16,
-            right: 16,
-            bottom: 0,
-            left: 24,
-          }}
-        >
-          <XAxis
-            dataKey="time"
-            stroke={theme.palette.text.secondary}
-            style={theme.typography.body2}
-          />
-          <YAxis
-            stroke={theme.palette.text.secondary}
-            style={theme.typography.body2}
-          >
-            <Label
-              angle={270}
-              position="left"
-              style={{
-                textAnchor: 'middle',
-                fill: theme.palette.text.primary,
-                ...theme.typography.body1,
-              }}
-            >
-              Sales ($)
-            </Label>
-          </YAxis>
-          <Line
-            isAnimationActive={false}
-            type="monotone"
-            dataKey="amount"
-            stroke={theme.palette.primary.main}
-            dot={false}
-          />
-        </LineChart>
-      </ResponsiveContainer>
-    </React.Fragment>
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
   );
-}
+};
+
+const Chart = (props) => {
+  // Accessing data passed from the parent component via props
+  const { title } = props;
+
+    return (
+
+      <React.Fragment>
+      <Title>{title}</Title>
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart width={400} height={400}>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomizedLabel}
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+      </React.Fragment>
+    );
+
+};
+
+// export default class Example extends PureComponent {
+
+//   render() {
+//     return (
+//       <React.Fragment>
+//       <Title>Startups</Title>
+//       <ResponsiveContainer width="100%" height="100%">
+//         <PieChart width={400} height={400}>
+//           <Pie
+//             data={data}
+//             cx="50%"
+//             cy="50%"
+//             labelLine={false}
+//             label={renderCustomizedLabel}
+//             outerRadius={80}
+//             fill="#8884d8"
+//             dataKey="value"
+//           >
+//             {data.map((entry, index) => (
+//               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+//             ))}
+//           </Pie>
+//         </PieChart>
+//       </ResponsiveContainer>
+//       </React.Fragment>
+//     );
+//   }
+// }
+
+export default Chart

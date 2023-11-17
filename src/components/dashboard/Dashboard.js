@@ -121,10 +121,11 @@ export default function Dashboard() {
               Dashboard
             </Typography>
             <IconButton color="inherit">
-              <Button color="inherit">Log In</Button>
+              <Button color="inherit">Log Out</Button>
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -142,9 +143,10 @@ export default function Dashboard() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {/* {secondaryListItems} */}
           </List>
         </Drawer>
+
+
         <Box
           component="main"
           sx={{
