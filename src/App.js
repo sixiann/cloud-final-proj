@@ -4,6 +4,8 @@ import SignIn from './components/SignIn';
 import Dashboard from './components/dashboard/Dashboard'
 import Home from './components/home/Home'
 import Industries from './components/industries/Industries'
+import Companies from './components/companies/Companies'
+import Investors from './components/investors/Investors'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
@@ -12,7 +14,9 @@ function App() {
       {/* <SignIn/> */}
       {/* <Dashboard /> */}
       {/* {isLoggedIn?<Home/>:<Dashboard />} */}
-      <Industries/>
+      {/* <Industries/> */}
+      {/* <Companies/> */}
+      <Investors/>
     </div>
   );
 }
