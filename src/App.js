@@ -12,6 +12,7 @@ function App() {
   return (
     <div className="App">
       {/* <SignIn/> */}
+      {/* <Home/> */}
       {/* <Dashboard /> */}
       {/* {isLoggedIn?<Home/>:<Dashboard />} */}
       {/* <Industries/> */}
