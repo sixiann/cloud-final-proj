@@ -4,10 +4,13 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
+import Grid from '@mui/material/Grid';
+
 
 const card = (props) => {
   const {image, title, description} = props
   return (
+    <Grid item xs={6} sm={3}>
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
@@ -26,6 +29,7 @@ const card = (props) => {
         </CardContent>
       </CardActionArea>
     </Card>
+    </Grid>
   );
 }
 

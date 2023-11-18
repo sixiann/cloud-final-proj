@@ -14,12 +14,12 @@ import HomeIcon from '@mui/icons-material/Home';
 
 export const mainListItems = (
   <React.Fragment>
-    <ListItemButton>
+    {/* <ListItemButton>
       <ListItemIcon>
         <HomeIcon />
       </ListItemIcon>
       <ListItemText primary="Home" />
-    </ListItemButton>
+    </ListItemButton> */}
     <ListItemButton>
       <ListItemIcon>
         <DashboardIcon />

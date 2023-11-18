@@ -1,33 +1,34 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Button from '@mui/material/Button';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
+import SavedStartups from './SavedStartups';
+import SearchBar from '../common/SearchBar';
+import News from './News'
 
-function Copyright(props: any) {
+
+function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        StartupsNYC
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -35,15 +36,11 @@ function Copyright(props: any) {
   );
 }
 
-const drawerWidth: number = 240;
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
-}
+const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
   transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
@@ -88,8 +85,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function Industries() {
   const [open, setOpen] = React.useState(true);
+  const [searchValue, setSearchValue] = React.useState('');
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+    // Perform search/filter operations using the searchValue
+    // E.g., call an API, filter data, etc.
+  };
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -98,6 +103,7 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
+
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
@@ -123,15 +129,14 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Industries
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+              <Button color="inherit">Log Out</Button>
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -149,9 +154,10 @@ export default function Dashboard() {
           <List component="nav">
             {mainListItems}
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
           </List>
         </Drawer>
+
+
         <Box
           component="main"
           sx={{
@@ -166,39 +172,50 @@ export default function Dashboard() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <SearchBar placeholder="Search..." onChange={handleSearchChange} />
             <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              {/* Top Startups */}
+
+              <Grid item xs={12} md={6} lg={6}>
+              <Typography variant="h4" gutterBottom sx={{textAlign: 'left'}}>
+                Top Startups
+              </Typography>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    // height: 500,
                   }}
                 >
-                  <Chart />
+                  <SavedStartups title={'Top Startups'}/>
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+
+              {/* Top Investors */}
+              <Grid item xs={12} md={6} lg={6}>
+              <Typography variant="h4" gutterBottom sx={{textAlign: 'left'}}>
+                Top Investors
+              </Typography>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    // height: 500,
                   }}
                 >
-                  <Deposits />
+                  <SavedStartups title={'Top Investors'}/>
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
-                </Paper>
-              </Grid>
+
+
+            </Grid>
+            <Typography variant="h4" gutterBottom sx={{textAlign: 'left', paddingTop: 5}}>
+                The Latest
+              </Typography>
+            <Grid container spacing={4}>
+            <News/>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>

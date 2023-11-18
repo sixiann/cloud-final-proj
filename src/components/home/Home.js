@@ -18,9 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import SavedStartups from './SavedStartups';
-import Card from './Card'
+import Card from '../common/Card'
 
 const homepageText = 'StartupsNYC amplifies your startup journey with intuitive ecosystem mapping. It generates visualizations that complement your research and provide further insights into the NYC entrepreurship ecosystem.'
 
@@ -212,25 +210,15 @@ export default function Dashboard() {
             </Grid> */}
 
             <Grid container spacing={4}>
-              {/* First Card */}
-              <Grid item xs={6} sm={3}> {/* xs={6} for small screens, sm={3} for larger screens */}
+
                 <Card image='icon1.png' title='Custom Dashboard' description='Create your own custom dashboard with your favorite startups and investors.'/>
-              </Grid>
 
-              {/* Second Card */}
-              <Grid item xs={6} sm={3}>
                 <Card image='icon2.png' title='Startups & Investors' description='Develop a comprehensive overview of the biggest players in NYC’s startup space.'/>
-              </Grid>
 
-              {/* Third Card */}
-              <Grid item xs={6} sm={3}>
                 <Card image='icon3.png' title='Industry' description='Learn about the most promising startups in an industry of your choosing'/>
-              </Grid>
 
-              {/* Fourth Card */}
-              <Grid item xs={6} sm={3}>
                 <Card image='icon4.png' title='News & Events' description='Stay up to date with the latest new and events in the NYC startup ecosystem.'/>
-              </Grid>
+
             </Grid>
 
 

@@ -51,7 +51,7 @@ const Orders = (props) => {
   return (
 
     <React.Fragment>
-      <Title>Saved {title}</Title>
+      <Title>{title}</Title>
       <List
         sx={{
           width: '100%',

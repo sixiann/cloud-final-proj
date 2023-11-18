@@ -3,14 +3,16 @@ import * as React from 'react';
 import SignIn from './components/SignIn';
 import Dashboard from './components/dashboard/Dashboard'
 import Home from './components/home/Home'
+import Industries from './components/industries/Industries'
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   return (
     <div className="App">
       {/* <SignIn/> */}
       {/* <Dashboard /> */}
-      {isLoggedIn?<Home/>:<Dashboard />}
+      {/* {isLoggedIn?<Home/>:<Dashboard />} */}
+      <Industries/>
     </div>
   );
 }

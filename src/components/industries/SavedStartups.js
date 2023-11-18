@@ -27,9 +27,6 @@ function generateListItems(rows) {
         primary={row.name}
         secondary={row.description}
       />
-      <IconButton edge="end" aria-label="delete">
-        <DeleteIcon />
-      </IconButton>
     </ListItem>
   ));
 }
@@ -51,7 +48,7 @@ const Orders = (props) => {
   return (
 
     <React.Fragment>
-      <Title>Saved {title}</Title>
+      {/* <Title>{title}</Title> */}
       <List
         sx={{
           width: '100%',
