@@ -28,9 +28,7 @@ export const mainListItems =  (
       </ListItemIcon>
       <ListItemText primary="Home" />
     </ListItemButton>
-
     }
-
     <ListItemButton component={Link} to="/industries">
       <ListItemIcon>
         <AlignHorizontalLeftIcon />
@@ -49,17 +47,5 @@ export const mainListItems =  (
       </ListItemIcon>
       <ListItemText primary="Investors" />
     </ListItemButton>
-    {/* <ListItemButton component={Link} to="/news">
-      <ListItemIcon>
-        <LayersIcon />
-      </ListItemIcon>
-      <ListItemText primary="News" />
-    </ListItemButton>
-    <ListItemButton component={Link} to="/events">
-      <ListItemIcon>
-        <EventIcon />
-      </ListItemIcon>
-      <ListItemText primary="Events" />
-    </ListItemButton> */}
   </React.Fragment>
 );

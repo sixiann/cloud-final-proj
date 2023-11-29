@@ -59,7 +59,7 @@ export default function Industries() {
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
 
-        <AppBar position="absolute" open={open}>
+        {/* <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -90,7 +90,7 @@ export default function Industries() {
               <Button color="inherit">Log Out</Button>
             </IconButton>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
         <Drawer variant="permanent" open={open}>
           <Toolbar
@@ -101,9 +101,9 @@ export default function Industries() {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            {/* <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
           <Divider />
           <List component="nav">

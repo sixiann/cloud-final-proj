@@ -2,21 +2,14 @@ import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Button from '@mui/material/Button';
-// import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
-// import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems  } from '../common/listItems';
 import Card from '../common/Card'
 import { AppBar, Drawer } from '../common/AppBar'
@@ -39,49 +32,18 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function Dashboard() {
+export default function Home(props) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  console.log("PROPS: ", props)
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Home
-            </Typography>
-            <IconButton color="inherit">
-              <Button color="inherit">Log In</Button>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -91,9 +53,9 @@ export default function Dashboard() {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            {/* <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
           <Divider />
           <List component="nav">
@@ -119,16 +81,6 @@ export default function Dashboard() {
 
 
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-
-
-          {/* <Typography variant="h1" gutterBottom sx={{ width: '60%', textAlign: 'left', fontWeight: 'bold' }}>
-            Discover the Startups of NYC
-          </Typography>
-          <div style={{ textAlign: 'left' }}>
-            <Button variant="contained" color="primary">
-              Log In
-            </Button>
-          </div> */}
 
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ width: '60%' }}>
@@ -156,14 +108,6 @@ export default function Dashboard() {
           <Typography variant="h4" gutterBottom sx={{ width: '100%', textAlign: 'left', fontStyle: 'italic', fontWeight: 'bold', padding: '100px' }}>
             {homepageText}
           </Typography>
-            {/* <Grid container spacing={3}>
-
-
-
-
-
-            </Grid> */}
-
             <Grid container spacing={4}>
 
                 <Card image='icon1.png' title='Custom Dashboard' description='Create your own custom dashboard with your favorite startups and investors.'/>

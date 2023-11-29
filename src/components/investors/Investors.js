@@ -44,7 +44,7 @@ export default function Companies() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        {/* <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -75,7 +75,7 @@ export default function Companies() {
               <Button color="inherit">Log Out</Button>
             </IconButton>
           </Toolbar>
-        </AppBar>
+        </AppBar> */}
 
         <Drawer variant="permanent" open={open}>
           <Toolbar
@@ -86,9 +86,9 @@ export default function Companies() {
               px: [1],
             }}
           >
-            <IconButton onClick={toggleDrawer}>
+            {/* <IconButton onClick={toggleDrawer}>
               <ChevronLeftIcon />
-            </IconButton>
+            </IconButton> */}
           </Toolbar>
           <Divider />
           <List component="nav">

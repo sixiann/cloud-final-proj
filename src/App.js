@@ -6,39 +6,67 @@ import Home from './components/home/Home'
 import Industries from './components/industries/Industries'
 import Companies from './components/companies/Companies'
 import Investors from './components/investors/Investors'
+import { AppBar, Drawer } from './components/common/AppBar'
+import Button from '@mui/material/Button';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
-// function App() {
-//   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-//   return (
-//     <div className="App">
-//       {/* <SignIn/> */}
-//       <Home/>
-//       {/* <Dashboard /> */}
-//       {/* {isLoggedIn?<Dashboard />:<Home/>} */}
-//       {/* <Industries/> */}
-//       {/* <Companies/> */}
-//       {/* <Investors/> */}
-//     </div>
-//   );
-// }
-
-// import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import HomePage from './components/HomePage'; // Import your Home page component
-// import IndustriesPage from './components/IndustriesPage'; // Import your Industries page component
-// import Layout from './components/Layout'; // Optional: Layout component if you have one
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
     <BrowserRouter>
+        <AppBar position="absolute" open={open}>
+          <Toolbar
+            sx={{
+              pr: '24px', // keep right padding when drawer closed
+            }}
+          >
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              sx={{
+                marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Home
+            </Typography>
+            <IconButton color="inherit">
+            {
+              isLoggedIn ?
+              <Button color="inherit">Log Out</Button>
+              : <Button color="inherit">Log In</Button>
+            }
+            </IconButton>
+          </Toolbar>
+        </AppBar>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/industries" element={<Industries />} />
-          <Route path="/companies" element={<Companies/>} />
-          <Route path="/investors" element={<Investors/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/signin" element={<SignIn/>} />
-          {/* Add more routes as needed */}
+          <Route path="/" element={<Home isLoggedIn={isLoggedIn}/>} />
+          <Route path="/industries" element={<Industries isLoggedIn={isLoggedIn}/>} />
+          <Route path="/companies" element={<Companies isLoggedIn={isLoggedIn}/>} />
+          <Route path="/investors" element={<Investors isLoggedIn={isLoggedIn}/>} />
+          <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn}/>} />
+          <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn}/>} />
         </Routes>
     </BrowserRouter>
   );
