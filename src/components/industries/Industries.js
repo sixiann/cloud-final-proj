@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems  } from '../common/listItems';
 import Chart from './Chart';
-import SavedStartups from './SavedStartups';
+import SavedStartups from '../common/ListData';
 import SearchBar from '../common/SearchBar';
 import News from './News'
 import { AppBar, Drawer } from '../common/AppBar'
@@ -127,6 +127,9 @@ export default function Industries() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Typography component="h2" variant="h6" color="primary" gutterBottom>
+            Industries
+          </Typography>
             <SearchBar placeholder="Search..." onChange={handleSearchChange} />
             <Grid container spacing={3}>
               {/* Top Startups */}

@@ -12,8 +12,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -49,7 +48,7 @@ const App = () => {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Home
+              {/* Home */}
             </Typography>
             <IconButton color="inherit">
             {

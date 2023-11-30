@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems  } from '../common/listItems';
 import Chart from './Chart';
-import SavedStartups from './SavedStartups';
+import SavedStartups from '../common/ListData';
 import { AppBar, Drawer } from '../common/AppBar'
 
 
@@ -48,38 +48,6 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        {/* <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              <Button color="inherit">Log Out</Button>
-            </IconButton>
-          </Toolbar>
-        </AppBar> */}
 
         <Drawer variant="permanent" open={open}>
           <Toolbar
@@ -133,7 +101,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <SavedStartups title={'Saved Startups'}/>
+                  <SavedStartups title={'Saved Startups'} isDashboard={true}/>
                 </Paper>
               </Grid>
               {/* Startups Chart */}
