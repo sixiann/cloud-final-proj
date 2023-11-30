@@ -11,6 +11,8 @@ import Link from '@mui/material/Link';
 import { mainListItems  } from '../common/listItems';
 import DataTable from './Table';
 import { AppBar, Drawer } from '../common/AppBar'
+import Button from '@mui/material/Button';
+
 
 function Copyright(props) {
   return (
@@ -32,6 +34,11 @@ export default function Companies() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const saveData = () => {
+    // Implement your save logic here
+    console.log('Data saved!');
   };
 
   return (
@@ -76,6 +83,11 @@ export default function Companies() {
               Investors
             </Typography>
             <DataTable />
+            <div style={{  right: 20, bottom: 20, paddingTop: 10 }}>
+              <Button variant="contained" color="primary" onClick={saveData}>
+                Save
+              </Button>
+            </div>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

@@ -41,6 +41,12 @@ export default function Companies() {
     setOpen(!open);
   };
 
+  const saveData = () => {
+    // Implement your save logic here
+    console.log('Data saved!');
+  };
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -84,9 +90,15 @@ export default function Companies() {
             Companies
           </Typography>
             <DataTable />
+            <div style={{  right: 20, bottom: 20, paddingTop: 10 }}>
+              <Button variant="contained" color="primary" onClick={saveData}>
+                Save
+              </Button>
+            </div>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
+
       </Box>
     </ThemeProvider>
   );
