@@ -13,6 +13,11 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+// import CustomLinkButton from './common/CustomLinkButton'; // Import the custom component
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
@@ -23,6 +28,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      {isLoggedIn && (
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
@@ -50,24 +56,26 @@ const App = () => {
             >
               {/* Home */}
             </Typography>
+            {/* <CustomLinkButton to="/signin" primary="Log In" /> */}
             <IconButton color="inherit">
-            {
-              isLoggedIn ?
-              <Button color="inherit">Log Out</Button>
-              : <Button color="inherit">Log In</Button>
-            }
+              <ListItemButton component={Link} >
+                <ListItemText primary="Log Out" />
+              </ListItemButton>
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Routes>
-          <Route path="/" element={<Home isLoggedIn={isLoggedIn}/>} />
-          <Route path="/industries" element={<Industries isLoggedIn={isLoggedIn}/>} />
-          <Route path="/companies" element={<Companies isLoggedIn={isLoggedIn}/>} />
-          <Route path="/investors" element={<Investors isLoggedIn={isLoggedIn}/>} />
-          <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn}/>} />
-          <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn}/>} />
-        </Routes>
+      )}
+
+      <Routes>
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route path="/industries" element={<Industries isLoggedIn={isLoggedIn} />} />
+        <Route path="/companies" element={<Companies isLoggedIn={isLoggedIn} />} />
+        <Route path="/investors" element={<Investors isLoggedIn={isLoggedIn} />} />
+        <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
+        <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
+      </Routes>
     </BrowserRouter>
+
   );
 };
 

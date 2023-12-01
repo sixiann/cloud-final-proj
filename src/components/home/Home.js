@@ -13,6 +13,11 @@ import Link from '@mui/material/Link';
 import { mainListItems  } from '../common/listItems';
 import Card from '../common/Card'
 import { AppBar, Drawer } from '../common/AppBar'
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import CustomLinkButton from '../common/CustomLinkButton';
+
 
 const homepageText = 'StartupsNYC amplifies your startup journey with intuitive ecosystem mapping. It generates visualizations that complement your research and provide further insights into the NYC entrepreurship ecosystem.'
 
@@ -88,9 +93,7 @@ export default function Home(props) {
                 Discover the Startups of NYC
               </Typography>
               <div style={{ textAlign: 'left' }}>
-                <Button sx={{width: 150, height: 50}} variant="contained" color="primary">
-                  Log In
-                </Button>
+                <CustomLinkButton to="/signin" primary="Log In" />
               </div>
             </div>
 
