@@ -51,7 +51,7 @@ export default function Companies() {
 
   const [open, setOpen] = React.useState(true);
   const [companies, setCompanies] = React.useState(rows);
-  const [searchResult, setSearchResult] = React.useState([]);
+  // const [searchResult, setSearchResult] = React.useState([]);
   // const [industryResult, setIndustryResult] = React.useState([]);
   // const [investorResult, setInvestorResult] = React.useState([]);
   // const [stageResult, setStageResult] = React.useState([]);
@@ -60,17 +60,12 @@ export default function Companies() {
   const [selectedIndustry, setSelectedIndustry] = React.useState('');
   const [selectedInvestor, setSelectedInvestor] = React.useState('');
   const [selectedStage, setSelectedStage] = React.useState('');
+  const [selectedRows, setSelectedRows] =  React.useState(null);
   const [updateResult, setUpdateResult] = React.useState('');
 
   // const toggleDrawer = () => {
   //   setOpen(!open);
   // };
-
-  const saveData = () => {
-    // Implement  save logic here
-    console.log('Data saved!');
-  };
-
 
   // React.useEffect(() => {
   //   // Fetch all companies when the component mounts
@@ -89,23 +84,20 @@ export default function Companies() {
   // }, []);
 
   const handleSearchClick = async () => {
+    console.log(searchQuery, selectedIndustry, selectedInvestor, selectedStage);
     try {
-      const searchQuery = 'your_search_query';
-      const result = await getFilteredCompanies(searchQuery);
-      setSearchResult(result);
+      const result = await getFilteredCompanies(searchQuery, selectedIndustry, selectedInvestor, selectedStage);
+      setCompanies(result);
     } catch (error) {
       // Handle error
       console.error('Error fetching companies based on search:', error);
     }
   };
 
-  const handleUpdateStartupClick = async () => {
+  const saveData = async () => {
+    // console.log(selectedRows)
     try {
-      const startupId = 'your_startup_id';
-      const updatedData = {
-        // Include the updated data for the startup here
-      };
-      const result = await updateSavedStartup(startupId, updatedData);
+      const result = await updateSavedStartup(selectedRows);
       setUpdateResult(result);
     } catch (error) {
       // Handle error
@@ -113,7 +105,7 @@ export default function Companies() {
     }
   };
 
-  console.log(selectedInvestor)
+  // console.log(selectedInvestor)
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -164,8 +156,9 @@ export default function Companies() {
             setSelectedIndustry={setSelectedIndustry}
             setSelectedInvestor={setSelectedInvestor}
             setSelectedStage={setSelectedStage}
+            handleSearchClick={handleSearchClick}
             />
-            {companies ? <DataTable data={companies}/> : <div>Loading...</div>}
+            {companies ? <DataTable data={companies} setCheckedRows={setSelectedRows}/> : <div>Loading...</div>}
             <div style={{  right: 20, bottom: 20, paddingTop: 10 }}>
               <Button variant="contained" color="primary" onClick={saveData}>
                 Save

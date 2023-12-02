@@ -82,7 +82,7 @@ const SearchFilterBar = (props) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleSearchChange} // handleSearch is the function to be called when the button is clicked
+          onClick={props.handleSearchClick} // handleSearch is the function to be called when the button is clicked
         >
           Search
         </Button>

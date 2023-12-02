@@ -33,6 +33,7 @@ export default function DataTable(props) {
   // const [columns, setColumns] = React.useState(/* your columns data */);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState(null);
+  // const [checkedRows, setCheckedRows] = React.useState(null);
 
   React.useEffect(() => {
     setRows(props.data)
@@ -51,12 +52,22 @@ export default function DataTable(props) {
     setOpenDialog(false);
   };
 
+  const handleSelectionChange = (newSelection) => {
+    let allSelections = []
+    console.log(newSelection)
+    for (let i = 0; i < newSelection.length; i++) {
+      allSelections.push(rows[newSelection[i]-1])
+    }
+    props.setCheckedRows(allSelections);
+  };
+
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <DataGrid
         rows={rows}
         columns={columns}
         onRowClick={handleRowClick}
+        onRowSelectionModelChange={handleSelectionChange}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
