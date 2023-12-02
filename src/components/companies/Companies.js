@@ -17,6 +17,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems  } from '../common/listItems';
 import DataTable from './Table';
 import { AppBar, Drawer } from '../common/AppBar'
+import SearchFilterBar from './SearchFilterBar';
+
 import axios from 'axios';
 import {
   // getCompaniesBasedOnSearch,
@@ -53,6 +55,11 @@ export default function Companies() {
   // const [industryResult, setIndustryResult] = React.useState([]);
   // const [investorResult, setInvestorResult] = React.useState([]);
   // const [stageResult, setStageResult] = React.useState([]);
+
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedIndustry, setSelectedIndustry] = React.useState('');
+  const [selectedInvestor, setSelectedInvestor] = React.useState('');
+  const [selectedStage, setSelectedStage] = React.useState('');
   const [updateResult, setUpdateResult] = React.useState('');
 
   // const toggleDrawer = () => {
@@ -60,7 +67,7 @@ export default function Companies() {
   // };
 
   const saveData = () => {
-    // Implement your save logic here
+    // Implement  save logic here
     console.log('Data saved!');
   };
 
@@ -106,6 +113,8 @@ export default function Companies() {
     }
   };
 
+  console.log(selectedInvestor)
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -146,7 +155,17 @@ export default function Companies() {
           <Typography component="h2" variant="h6" color="primary" gutterBottom>
             Companies
           </Typography>
-            <DataTable data={companies}/>
+          <SearchFilterBar
+            searchQuery={searchQuery}
+            selectedIndustry={selectedIndustry}
+            selectedInvestor={selectedInvestor}
+            selectedStage={selectedStage}
+            setSearchQuery={setSearchQuery}
+            setSelectedIndustry={setSelectedIndustry}
+            setSelectedInvestor={setSelectedInvestor}
+            setSelectedStage={setSelectedStage}
+            />
+            {companies ? <DataTable data={companies}/> : <div>Loading...</div>}
             <div style={{  right: 20, bottom: 20, paddingTop: 10 }}>
               <Button variant="contained" color="primary" onClick={saveData}>
                 Save

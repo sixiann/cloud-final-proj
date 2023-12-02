@@ -28,10 +28,19 @@ const columns: GridColDef[] = [
 ];
 
 export default function DataTable(props) {
-  // const [rows, setRows] = React.useState(/* your rows data */);
+
+  const [rows, setRows] = React.useState();
   // const [columns, setColumns] = React.useState(/* your columns data */);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState(null);
+
+  React.useEffect(() => {
+    setRows(props.data)
+  }, []);
+
+  if (!rows) {
+    return <div>Loading...</div>; // or return null;
+  }
 
   const handleRowClick = (params) => {
     setSelectedRow(params.row);
@@ -44,9 +53,8 @@ export default function DataTable(props) {
 
   return (
     <div style={{ height: '100%', width: '100%' }}>
-      <SearchFilterBar/>
       <DataGrid
-        rows={props.data}
+        rows={rows}
         columns={columns}
         onRowClick={handleRowClick}
         initialState={{
@@ -57,31 +65,33 @@ export default function DataTable(props) {
         pageSizeOptions={[5, 10]}
         checkboxSelection
       />
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>{selectedRow.name}</DialogTitle>
-        <IconButton
-          aria-label="close"
-          onClick={handleCloseDialog}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
-        <DialogContent>
-        {selectedRow && (
-          <div>
-            <p><strong>Name:</strong> {selectedRow.name}</p>
-            <p><strong>Industry:</strong> {selectedRow.industry}</p>
-            <p><strong>Location:</strong> {selectedRow.location}</p>
-            <p><strong>Description:</strong> {selectedRow.description}</p>
-          </div>
-        )}
-        </DialogContent>
-      </Dialog>
+      {selectedRow && (
+        <Dialog open={openDialog} onClose={handleCloseDialog}>
+          <DialogTitle>
+            {selectedRow.name}
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseDialog}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <div>
+              <p><strong>Name:</strong> {selectedRow.name}</p>
+              <p><strong>Industry:</strong> {selectedRow.industry}</p>
+              <p><strong>Location:</strong> {selectedRow.location}</p>
+              <p><strong>Description:</strong> {selectedRow.description}</p>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

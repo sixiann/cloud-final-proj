@@ -3,35 +3,22 @@ import { TextField, Select, MenuItem, InputLabel, FormControl, Grid, IconButton 
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 
-const SearchFilterBar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedIndustry, setSelectedIndustry] = useState('');
-  const [selectedInvestor, setSelectedInvestor] = useState('');
-  const [selectedStage, setSelectedStage] = useState('');
+const SearchFilterBar = (props) => {
 
-  // Function to handle search input change
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-    // Perform search/filter operations using the searchQuery
-    // E.g., call an API, filter data, etc.
+    props.setSearchQuery(event.target.value);
   };
 
-  // Function to handle industry filter change
   const handleIndustryChange = (event) => {
-    setSelectedIndustry(event.target.value);
-    // Perform filtering based on the selected industry
+    props.setSelectedIndustry(event.target.value);
   };
 
-  // Function to handle investor filter change
   const handleInvestorChange = (event) => {
-    setSelectedInvestor(event.target.value);
-    // Perform filtering based on the selected investor
+    props.setSelectedInvestor(event.target.value);
   };
 
-  // Function to handle stage filter change
   const handleStageChange = (event) => {
-    setSelectedStage(event.target.value);
-    // Perform filtering based on the selected stage
+    props.setSelectedStage(event.target.value);
   };
 
   return (
@@ -41,7 +28,7 @@ const SearchFilterBar = () => {
           label="Search"
           variant="outlined"
           fullWidth
-          value={searchQuery}
+          value={props.searchQuery}
           onChange={handleSearchChange}
         />
       </Grid>
@@ -49,7 +36,7 @@ const SearchFilterBar = () => {
         <FormControl variant="outlined" fullWidth>
           <InputLabel>Industry</InputLabel>
           <Select
-            value={selectedIndustry}
+            value={props.selectedIndustry}
             onChange={handleIndustryChange}
             label="Industry"
           >
@@ -64,7 +51,7 @@ const SearchFilterBar = () => {
         <FormControl variant="outlined" fullWidth>
           <InputLabel>Investor</InputLabel>
           <Select
-            value={selectedInvestor}
+            value={props.selectedInvestor}
             onChange={handleInvestorChange}
             label="Investor"
           >
@@ -79,7 +66,7 @@ const SearchFilterBar = () => {
         <FormControl variant="outlined" fullWidth>
           <InputLabel>Stage</InputLabel>
           <Select
-            value={selectedStage}
+            value={props.selectedStage}
             onChange={handleStageChange}
             label="Stage"
           >
