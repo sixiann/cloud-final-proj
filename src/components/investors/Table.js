@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import SearchFilterBar from './SearchFilterBar';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 130 },
@@ -23,12 +28,24 @@ const columns: GridColDef[] = [
 ];
 
 export default function DataTable() {
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const [selectedRow, setSelectedRow] = React.useState(null);
+
+  const handleRowClick = (params) => {
+    setSelectedRow(params.row);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <SearchFilterBar/>
-      <DataGrid
+       <DataGrid
         rows={rows}
         columns={columns}
+        onRowClick={handleRowClick}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
@@ -37,6 +54,25 @@ export default function DataTable() {
         pageSizeOptions={[5, 10]}
         checkboxSelection
       />
+       <Dialog open={openDialog} onClose={handleCloseDialog}>
+        {/* <DialogTitle>Row Details</DialogTitle> */}
+        <IconButton
+          aria-label="close"
+          onClick={handleCloseDialog}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+        <DialogContent>
+          {/* Display selected row details here */}
+          {selectedRow && JSON.stringify(selectedRow)}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

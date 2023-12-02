@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Select, MenuItem, InputLabel, FormControl, Grid, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
 
 const SearchFilterBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -42,13 +43,6 @@ const SearchFilterBar = () => {
           fullWidth
           value={searchQuery}
           onChange={handleSearchChange}
-          InputProps={{
-            endAdornment: (
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            ),
-          }}
         />
       </Grid>
       <Grid item xs={12} sm={6} md={2}>
@@ -95,6 +89,15 @@ const SearchFilterBar = () => {
             {/* Add more stage options as needed */}
           </Select>
         </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6} md={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSearchChange} // handleSearch is the function to be called when the button is clicked
+        >
+          Search
+        </Button>
       </Grid>
     </Grid>
   );
