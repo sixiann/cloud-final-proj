@@ -6,6 +6,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
+import ArticleIcon from '@mui/icons-material/Article';
 import EventIcon from '@mui/icons-material/Event';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import HomeIcon from '@mui/icons-material/Home';
@@ -46,6 +47,12 @@ export const mainListItems =  (
         <PeopleIcon />
       </ListItemIcon>
       <ListItemText primary="Investors" />
+    </ListItemButton>
+    <ListItemButton component={Link} to="/news">
+      <ListItemIcon>
+        <ArticleIcon />
+      </ListItemIcon>
+      <ListItemText primary="News" />
     </ListItemButton>
   </React.Fragment>
 );

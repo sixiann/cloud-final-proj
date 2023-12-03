@@ -16,6 +16,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import News from './components/news/News'
 // import CustomLinkButton from './common/CustomLinkButton'; // Import the custom component
 
 
@@ -73,6 +74,7 @@ const App = () => {
         <Route path="/investors" element={<Investors isLoggedIn={isLoggedIn} />} />
         <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
         <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
+        <Route path="/news" element={<News isLoggedIn={isLoggedIn} />} />
       </Routes>
     </BrowserRouter>
 

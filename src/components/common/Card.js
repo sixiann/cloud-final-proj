@@ -8,10 +8,15 @@ import Grid from '@mui/material/Grid';
 
 
 const card = (props) => {
-  const {image, title, description} = props
+  const {image, title, description, link} = props
+
+  const handleCardClick = () => {
+    window.location.href = link;
+  };
+
   return (
     <Grid item xs={6} sm={3}>
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} onClick={handleCardClick}>
       <CardActionArea>
         <CardMedia
           component="img"
