@@ -9,39 +9,26 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 130 },
-  { field: 'industry', headerName: 'Industry', width: 130 },
+  { field: 'category_groups_list', headerName: 'Industry', width: 130 },
   {
-    field: 'location',
+    field: 'city',
     headerName: 'Location',
-    // type: 'number',
     width: 200,
   },
   {
-    field: 'description',
+    field: 'short_description',
     headerName: 'Description',
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 500,
     valueGetter: (params: GridValueGetterParams) =>
-      `${params.row.description}`,
+      `${params.row.short_description}`,
   },
 ];
 
 export default function DataTable(props) {
-
-  const [rows, setRows] = React.useState();
-  // const [columns, setColumns] = React.useState(/* your columns data */);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState(null);
-  // const [checkedRows, setCheckedRows] = React.useState(null);
-
-  React.useEffect(() => {
-    setRows(props.data)
-  }, []);
-
-  if (!rows) {
-    return <div>Loading...</div>; // or return null;
-  }
 
   const handleRowClick = (params) => {
     setSelectedRow(params.row);
@@ -52,19 +39,24 @@ export default function DataTable(props) {
     setOpenDialog(false);
   };
 
+  const getRowId = (row) => {
+    return row.su;
+  }
+
   const handleSelectionChange = (newSelection) => {
     let allSelections = []
     console.log(newSelection)
     for (let i = 0; i < newSelection.length; i++) {
-      allSelections.push(rows[newSelection[i]-1])
+      allSelections.push(props.data[newSelection[i]-1])
     }
     props.setCheckedRows(allSelections);
   };
 
+
   return (
     <div style={{ height: '100%', width: '100%' }}>
       <DataGrid
-        rows={rows}
+        rows={props.data}
         columns={columns}
         onRowClick={handleRowClick}
         onRowSelectionModelChange={handleSelectionChange}
@@ -75,6 +67,7 @@ export default function DataTable(props) {
         }}
         pageSizeOptions={[5, 10]}
         checkboxSelection
+        getRowId={getRowId}
       />
       {selectedRow && (
         <Dialog open={openDialog} onClose={handleCloseDialog}>
@@ -96,9 +89,11 @@ export default function DataTable(props) {
           <DialogContent>
             <div>
               <p><strong>Name:</strong> {selectedRow.name}</p>
-              <p><strong>Industry:</strong> {selectedRow.industry}</p>
-              <p><strong>Location:</strong> {selectedRow.location}</p>
-              <p><strong>Description:</strong> {selectedRow.description}</p>
+              <p><strong>Industry:</strong> {selectedRow.category_groups_list}</p>
+              <p><strong>Location:</strong> {selectedRow.city}</p>
+              <p><strong>Total Funding (USD):</strong> {selectedRow.total_funding_usd}</p>
+              <p><strong>Description:</strong> {selectedRow.short_description}</p>
+              <p><strong>Website:</strong> {selectedRow.homepage_url}</p>
             </div>
           </DialogContent>
         </Dialog>

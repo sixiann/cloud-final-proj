@@ -14,29 +14,49 @@ import { mainListItems  } from '../common/listItems';
 import Chart from './Chart';
 import SavedStartups from '../common/ListData';
 import { AppBar, Drawer } from '../common/AppBar'
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        StartupsNYC
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import axios from 'axios';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
+  const [startups, setStartups] = React.useState([])
+  const [investors, setInvestors] = React.useState([])
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  React.useEffect(() => {
+    //su
+    //inv for investors
+
+    //CHANGE TO SAVED STARTUPS API CALL
+    axios.get('https://usixt8hpf2.execute-api.us-east-1.amazonaws.com/DEV/data')
+      .then(response => {
+        const companiesData = response.data;
+        setStartups(JSON.parse(companiesData.body));
+        // console.log("DATA:", JSON.parse(companiesData.body) )
+      })
+      .catch(error => {
+        console.error('Error fetching all companies:', error);
+      });
+
+    //CHANGE TO SAVED INVESTORS API CALL
+    axios.get('https://usixt8hpf2.execute-api.us-east-1.amazonaws.com/DEV/data')
+      .then(response => {
+        const data = response.data;
+        setInvestors(JSON.parse(data.body));
+        // console.log("DATA:", JSON.parse(companiesData.body) )
+      })
+      .catch(error => {
+        console.error('Error fetching all companies:', error);
+      });
+
+    //AXIOS CALL TO DELETE SAVED STARTUP
+    //AXIOS CALL TO DELETE SAVED INVESTOR
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -147,13 +167,12 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <SavedStartups title={'Investors'}/>
+                  <SavedStartups title={'Saved Investors'}/>
                 </Paper>
               </Grid>
 
 
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
