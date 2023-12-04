@@ -1,6 +1,8 @@
 import './App.css';
 import * as React from 'react';
 import SignIn from './components/SignIn';
+import Register from './components/Register';
+import Login from './components/Login';
 import Dashboard from './components/dashboard/Dashboard'
 import Home from './components/home/Home'
 import Industries from './components/industries/Industries'
@@ -19,9 +21,12 @@ import ListItemText from '@mui/material/ListItemText';
 import News from './components/news/News'
 // import CustomLinkButton from './common/CustomLinkButton'; // Import the custom component
 
+import { getUser } from './service/AuthService';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const user = getUser();
+  const username = user != null && user != 'undefined' && user ? user.username : '';
+  const [isLoggedIn, setIsLoggedIn] = React.useState(username);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -75,6 +80,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
         <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
         <Route path="/news" element={<News isLoggedIn={isLoggedIn} />} />
+        <Route path="/register" element={<Register isLoggedIn={isLoggedIn} />} />
+        <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
       </Routes>
     </BrowserRouter>
 
