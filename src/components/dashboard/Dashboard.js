@@ -83,7 +83,6 @@ export default function Dashboard() {
           </List>
         </Drawer>
 
-
         <Box
           component="main"
           sx={{
@@ -99,7 +98,7 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Typography variant="h2" gutterBottom>
-            Welcome, Céline!
+            Welcome, !
           </Typography>
             <Grid container spacing={3}>
 

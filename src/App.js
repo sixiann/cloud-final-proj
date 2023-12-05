@@ -24,9 +24,27 @@ import News from './components/news/News'
 import { getUser } from './service/AuthService';
 
 const App = () => {
-  const user = getUser();
-  const username = user != null && user != 'undefined' && user ? user.username : '';
-  const [isLoggedIn, setIsLoggedIn] = React.useState(username);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
+
+  React.useEffect(() => {
+    const fetchData = () => {
+      const user = getUser();
+      if (user) {
+        setName(user.name || '');
+        setUsername(user.username || '');
+        setEmail(user.email || '');
+        setIsLoggedIn(true);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log(name, username, email, isLoggedIn);
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -81,7 +99,7 @@ const App = () => {
         <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
         <Route path="/news" element={<News isLoggedIn={isLoggedIn} />} />
         <Route path="/register" element={<Register isLoggedIn={isLoggedIn} />} />
-        <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
+        <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
       </Routes>
     </BrowserRouter>
 

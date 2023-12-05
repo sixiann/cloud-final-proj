@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { setUserSession } from '../service/AuthService';
 import axios from 'axios';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const loginUrl = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/dev/login';
 
 const Login = () => {
 
+    const navigate = useNavigate();
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -33,7 +35,7 @@ const Login = () => {
 
         axios.post(loginUrl, requestBody, requestConfig).then(response => {
             setUserSession(response.data.user, response.data.token);
-            // navigate("/dashboard");
+            navigate("/dashboard");
             
         }).catch(error => {
             if (error.response.status == 401) {

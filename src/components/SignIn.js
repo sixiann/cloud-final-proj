@@ -13,6 +13,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useState } from 'react';
+import { setUserSession } from '../service/AuthService';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+
+const loginUrl = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/dev/login';
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,14 +38,51 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+
+  const navigate = useNavigate();
+  
+  const [errorMsg, setErrorMsg] = useState(null);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+    const username = data.get('username');
+    const password = data.get('password');
+    console.log(username, password);
+
+    if (username.trim() === '' || password.trim() === '') {
+        setErrorMsg('Both username and password are required');
+        return;
+    }
+    setErrorMsg(null);
+
+    const requestConfig = {
+        headers: {
+            'x-api-key': 'OdBbQrFaS19e60N4ngBX9aDvh3rbQqIl3cwMY3dN'
+        }
+    }
+    const requestBody = {
+        username: username,
+        password: password
+    }
+
+    axios.post(loginUrl, requestBody, requestConfig).then(response => {
+        setUserSession(response.data.user, response.data.token);
+        navigate("/dashboard");
+        
+    }).catch(error => {
+        if (error.response.status == 401) {
+            setErrorMsg(error.response.data.message);
+        } else if (error.response.status === 403) {
+            setErrorMsg(error.response.data.message);
+            setErrorMsg('Wrong password');
+        } else {
+            setErrorMsg('sorry, backend server down - please try again later')
+        }
+    })
+
+    console.log('password attempt');
+  }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -63,10 +107,10 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -91,6 +135,7 @@ export default function SignIn() {
             >
               Sign In
             </Button>
+            {errorMsg && <p className='message'>{errorMsg}</p>}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
