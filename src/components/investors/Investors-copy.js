@@ -9,38 +9,57 @@ import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { mainListItems  } from '../common/listItems';
-// import DataTable from './Table';
+import DataTable from './Table';
 import { AppBar, Drawer } from '../common/AppBar'
 import Button from '@mui/material/Button';
-import Articles from './Articles';
-import Grid from '@mui/material/Grid';
 import axios from 'axios';
+
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        StartupsNYC
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function News() {
+export default function Companies() {
   const [open, setOpen] = React.useState(true);
-  const [news, setNews] = React.useState(true);
+  const [investors, setInvestors] = React.useState(true);
+
 
   React.useEffect(() => {
-    // Fetch all companies when the component mounts
-
-    //su
     //inv for investors
     // --> /all-companies
 
-    axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-news')
+    axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-investors')
       .then(response => {
-        console.log("NEWS RESPONSE ", response)
+        console.log("INVESTORS RESPONSE ", response)
         const data = response.data;
-        setNews(JSON.parse(data.body));
+        setInvestors(JSON.parse(data.body));
       })
       .catch(error => {
-        console.error('Error fetching all news:', error);
+        console.error('Error fetching all investors:', error);
       });
 
   }, []);
+
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  const saveData = () => {
+    // Implement your save logic here
+    console.log('Data saved!');
+  };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -81,13 +100,15 @@ export default function News() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
-              News
+              Investors
             </Typography>
-            {/* <Articles/> */}
-            <Grid container spacing={4}>
-            <Articles/>
-            </Grid>
-
+            <DataTable />
+            <div style={{  right: 20, bottom: 20, paddingTop: 10 }}>
+              <Button variant="contained" color="primary" onClick={saveData}>
+                Save
+              </Button>
+            </div>
+            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>

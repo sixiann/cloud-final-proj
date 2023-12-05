@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import SearchFilterBar from './SearchFilterBar';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,7 +10,7 @@ const columns: GridColDef[] = [
   { field: 'name', headerName: 'Name', width: 130 },
   { field: 'category_groups_list', headerName: 'Industry', width: 130 },
   {
-    field: 'city',
+    field: 'region',
     headerName: 'Location',
     width: 200,
   },
@@ -89,7 +88,7 @@ export default function DataTable(props) {
           <DialogContent>
             <div>
               <p><strong>Name:</strong> {selectedRow.name}</p>
-              <p><strong>Industry:</strong> {selectedRow.category_groups_list}</p>
+              <p><strong>Industry:</strong> {selectedRow.category_list}</p>
               <p><strong>Location:</strong> {selectedRow.city}</p>
               <p><strong>Total Funding (USD):</strong> {selectedRow.total_funding_usd}</p>
               <p><strong>Description:</strong> {selectedRow.short_description}</p>

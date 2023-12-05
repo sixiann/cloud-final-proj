@@ -14,7 +14,7 @@ import { AppBar, Drawer } from '../common/AppBar'
 import SearchFilterBar from './SearchFilterBar';
 import axios from 'axios';
 import {
-  getFilteredCompanies,
+  // getFilteredCompanies,
   updateSavedStartup,
 } from './requests';
 
@@ -27,8 +27,9 @@ export default function Companies() {
   const [companies, setCompanies] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [selectedIndustry, setSelectedIndustry] = React.useState('');
-  const [selectedInvestor, setSelectedInvestor] = React.useState('');
-  const [selectedStage, setSelectedStage] = React.useState('');
+  const [selectedEmployeeCount, setSelectedEmployeeCount] = React.useState('');
+  const [selectedRegion, setSelectedRegion] = React.useState('');
+  const [selectedFunding, setSelectedFunding] = React.useState('');
   const [selectedRows, setSelectedRows] =  React.useState(null);
   const [updateResult, setUpdateResult] = React.useState('');
 
@@ -37,11 +38,7 @@ export default function Companies() {
   // };
 
   React.useEffect(() => {
-    // Fetch all companies when the component mounts
-
-    //su
-    //inv for investors
-    axios.get('https://usixt8hpf2.execute-api.us-east-1.amazonaws.com/DEV/data')
+    axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-companies')
       .then(response => {
         const companiesData = response.data;
         setCompanies(JSON.parse(companiesData.body));
@@ -49,16 +46,40 @@ export default function Companies() {
       .catch(error => {
         console.error('Error fetching all companies:', error);
       });
+
   }, []);
 
   const handleSearchClick = async () => {
-    console.log(searchQuery, selectedIndustry, selectedInvestor, selectedStage);
     try {
-      const result = await getFilteredCompanies(searchQuery, selectedIndustry, selectedInvestor, selectedStage);
-      setCompanies(result);
+      getFilteredCompanies(searchQuery, selectedIndustry, selectedEmployeeCount, selectedRegion, selectedFunding);
     } catch (error) {
-      // Handle error
       console.error('Error fetching companies based on search:', error);
+    }
+  };
+
+  const getFilteredCompanies = async (searchQuery, industryId, employeeCount, region, funding) => {
+    // console.log("filters   : ", searchQuery, industryId, employeeCount, region, funding)
+    try {
+      const requestBody = {
+        searchQuery: searchQuery,
+        category_list: !industryId.length ? [] :[industryId],
+        employee_count: employeeCount,
+        region: region,
+        total_funding: funding
+      };
+
+      // console.log("REQUEST ", requestBody)
+
+      const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
+      axios.post(url, requestBody)
+        .then(response => {
+          setCompanies(JSON.parse(response.data.body));
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    } catch (error) {
+      throw error;
     }
   };
 
@@ -115,12 +136,14 @@ export default function Companies() {
           <SearchFilterBar
             searchQuery={searchQuery}
             selectedIndustry={selectedIndustry}
-            selectedInvestor={selectedInvestor}
-            selectedStage={selectedStage}
+            selectedEmployeeCount={selectedEmployeeCount}
+            selectedRegion={selectedRegion}
+            selectedFunding={selectedFunding}
             setSearchQuery={setSearchQuery}
             setSelectedIndustry={setSelectedIndustry}
-            setSelectedInvestor={setSelectedInvestor}
-            setSelectedStage={setSelectedStage}
+            setSelectedEmployeeCount={setSelectedEmployeeCount}
+            setSelectedRegion={setSelectedRegion}
+            setSelectedFunding={setSelectedFunding}
             handleSearchClick={handleSearchClick}
             />
             {/* <DataTable data={companies} setCheckedRows={setSelectedRows}/> */}
@@ -136,114 +159,3 @@ export default function Companies() {
     </ThemeProvider>
   );
 }
-
-
-// const rows = [
-//   {
-//     id: 1,
-//     name: 'Startup One',
-//     industry: 'Technology',
-//     location: 'San Francisco, CA',
-//     description: 'This is a description for Startup One in the technology industry.',
-//   },
-//   {
-//     id: 2,
-//     name: 'Startup Two',
-//     industry: 'Healthcare',
-//     location: 'New York, NY',
-//     description: 'This is a description for Startup Two in the healthcare industry.',
-//   },
-//   {
-//     id: 3,
-//     name: 'Startup Three',
-//     industry: 'Finance',
-//     location: 'London, UK',
-//     description: 'This is a description for Startup Three in the finance industry.',
-//   },
-//   {
-//     id: 4,
-//     name: 'Startup Four',
-//     industry: 'E-commerce',
-//     location: 'Berlin, Germany',
-//     description: 'This is a description for Startup Four in the e-commerce industry.',
-//   },
-//   {
-//     id: 5,
-//     name: 'Startup Five',
-//     industry: 'Food & Beverage',
-//     location: 'Tokyo, Japan',
-//     description: 'This is a description for Startup Five in the food & beverage industry.',
-//   },
-//   {
-//     id: 6,
-//     name: 'Startup Six',
-//     industry: 'Education',
-//     location: 'Sydney, Australia',
-//     description: 'This is a description for Startup Six in the education industry.',
-//   },
-//   {
-//     id: 7,
-//     name: 'Startup Seven',
-//     industry: 'Automotive',
-//     location: 'Los Angeles, CA',
-//     description: 'This is a description for Startup Seven in the automotive industry.',
-//   },
-//   {
-//     id: 8,
-//     name: 'Startup Eight',
-//     industry: 'Entertainment',
-//     location: 'Paris, France',
-//     description: 'This is a description for Startup Eight in the entertainment industry.',
-//   },
-//   {
-//     id: 9,
-//     name: 'Startup Nine',
-//     industry: 'Fashion',
-//     location: 'Milan, Italy',
-//     description: 'This is a description for Startup Nine in the fashion industry.',
-//   },
-//   {
-//     id: 10,
-//     name: 'Startup Ten',
-//     industry: 'Travel & Tourism',
-//     location: 'Barcelona, Spain',
-//     description: 'This is a description for Startup Ten in the travel & tourism industry.',
-//   },
-//   {
-//     id: 11,
-//     name: 'Startup Eleven',
-//     industry: 'Real Estate',
-//     location: 'Toronto, Canada',
-//     description: 'This is a description for Startup Eleven in the real estate industry.',
-//   },
-//   {
-//     id: 12,
-//     name: 'Startup Twelve',
-//     industry: 'Energy',
-//     location: 'Oslo, Norway',
-//     description: 'This is a description for Startup Twelve in the energy industry.',
-//   },
-//   {
-//     id: 13,
-//     name: 'Startup Thirteen',
-//     industry: 'Telecommunications',
-//     location: 'Seoul, South Korea',
-//     description: 'This is a description for Startup Thirteen in the telecommunications industry.',
-//   },
-//   {
-//     id: 14,
-//     name: 'Startup Fourteen',
-//     industry: 'Agriculture',
-//     location: 'São Paulo, Brazil',
-//     description: 'This is a description for Startup Fourteen in the agriculture industry.',
-//   },
-//   {
-//     id: 15,
-//     name: 'Startup Fifteen',
-//     industry: 'Biotechnology',
-//     location: 'Zurich, Switzerland',
-//     description: 'This is a description for Startup Fifteen in the biotechnology industry.',
-//   },
-// ];
-
-

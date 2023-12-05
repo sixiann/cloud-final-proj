@@ -33,6 +33,7 @@ export default function Dashboard() {
     //inv for investors
 
     //CHANGE TO SAVED STARTUPS API CALL
+    // ${userid}
     axios.get('https://usixt8hpf2.execute-api.us-east-1.amazonaws.com/DEV/data')
       .then(response => {
         const companiesData = response.data;
