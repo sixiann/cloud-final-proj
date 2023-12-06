@@ -1,6 +1,8 @@
 import './App.css';
 import * as React from 'react';
 import SignIn from './components/SignIn';
+import Register from './components/Register';
+import Login from './components/Login';
 import Dashboard from './components/dashboard/Dashboard'
 import Home from './components/home/Home'
 import Industries from './components/industries/Industries'
@@ -19,9 +21,36 @@ import ListItemText from '@mui/material/ListItemText';
 import News from './components/news/News'
 // import CustomLinkButton from './common/CustomLinkButton'; // Import the custom component
 
+// import { useNavigate } from "react-router-dom";
+import { getUser, resetUserSession } from './service/AuthService';
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  React.useEffect(() => {
+    const fetchData = () => {
+      const user = getUser();
+      if (user) {
+        setName(user.name || '');
+        setUsername(user.username || '');
+        setEmail(user.email || '');
+        setIsLoggedIn(true);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const logOutUser = () => {
+    resetUserSession();
+    setIsLoggedIn(false);
+  }
+
+  console.log(name, username, email, isLoggedIn);
+
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -59,7 +88,7 @@ const App = () => {
             </Typography>
             {/* <CustomLinkButton to="/signin" primary="Log In" /> */}
             <IconButton color="inherit">
-              <ListItemButton component={Link} >
+              <ListItemButton component={Link} onClick={logOutUser}>
                 <ListItemText primary="Log Out" />
               </ListItemButton>
             </IconButton>
@@ -75,6 +104,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard isLoggedIn={isLoggedIn} />} />
         <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
         <Route path="/news" element={<News isLoggedIn={isLoggedIn} />} />
+        <Route path="/register" element={<Register isLoggedIn={isLoggedIn} />} />
+        <Route path="/signin" element={<SignIn isLoggedIn={isLoggedIn} />} />
       </Routes>
     </BrowserRouter>
 
