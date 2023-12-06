@@ -74,7 +74,7 @@ export default function SignIn() {
         if (error.response.status == 401) {
             setErrorMsg(error.response.data.message);
         } else if (error.response.status === 403) {
-            setErrorMsg(error.response.data.message);
+            // setErrorMsg(error.response.data.message);
             setErrorMsg('Wrong password');
         } else {
             setErrorMsg('sorry, backend server down - please try again later')
@@ -143,7 +143,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

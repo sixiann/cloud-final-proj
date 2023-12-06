@@ -21,14 +21,15 @@ import ListItemText from '@mui/material/ListItemText';
 import News from './components/news/News'
 // import CustomLinkButton from './common/CustomLinkButton'; // Import the custom component
 
-import { getUser } from './service/AuthService';
+// import { useNavigate } from "react-router-dom";
+import { getUser, resetUserSession } from './service/AuthService';
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [name, setName] = React.useState('');
   const [username, setUsername] = React.useState('');
   const [email, setEmail] = React.useState('');
-
   React.useEffect(() => {
     const fetchData = () => {
       const user = getUser();
@@ -42,6 +43,11 @@ const App = () => {
 
     fetchData();
   }, []);
+
+  const logOutUser = () => {
+    resetUserSession();
+    setIsLoggedIn(false);
+  }
 
   console.log(name, username, email, isLoggedIn);
 
@@ -82,7 +88,7 @@ const App = () => {
             </Typography>
             {/* <CustomLinkButton to="/signin" primary="Log In" /> */}
             <IconButton color="inherit">
-              <ListItemButton component={Link} >
+              <ListItemButton component={Link} onClick={logOutUser}>
                 <ListItemText primary="Log Out" />
               </ListItemButton>
             </IconButton>
