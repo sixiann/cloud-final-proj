@@ -84,6 +84,7 @@ export default function Companies() {
   };
 
   const saveData = async () => {
+    // console.log("UPDATE RESULT   ", selectedRows)
     try {
       const result = await updateSavedStartup(selectedRows);
       setUpdateResult(result);
@@ -91,7 +92,6 @@ export default function Companies() {
       console.error('Error updating startup:', error);
     }
   };
-
 
   return (
     <ThemeProvider theme={defaultTheme}>

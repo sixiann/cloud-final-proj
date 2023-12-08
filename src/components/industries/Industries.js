@@ -22,20 +22,7 @@ import SavedStartups from '../common/ListData';
 import SearchBar from '../common/SearchBar';
 import News from './News'
 import { AppBar, Drawer } from '../common/AppBar'
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        StartupsNYC
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import axios from 'axios';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -43,6 +30,56 @@ const defaultTheme = createTheme();
 export default function Industries() {
   const [open, setOpen] = React.useState(true);
   const [searchValue, setSearchValue] = React.useState('');
+  const [companies, setCompanies] = React.useState([]);
+  const [investors, setInvestors] = React.useState([]);
+
+
+  React.useEffect(() => {
+      try {
+        const requestBody = {
+          searchQuery: searchValue,
+          category_list: [],
+          employee_count: '',
+          region: '',
+          total_funding: '',
+          top: ''
+        };
+        const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
+        axios.post(url, requestBody)
+          .then(response => {
+            setCompanies(JSON.parse(response.data.body));
+            // console.log("IN POST   ", companies)
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      } catch (error) {
+        throw error;
+      }
+
+      try {
+        const requestBody = {
+          searchQuery: searchValue,
+          category_list: [],
+          employee_count: '',
+          region: '',
+          total_funding: '',
+          top: ''
+        };
+        const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/investors';
+        axios.post(url, requestBody)
+          .then(response => {
+            console.log(response)
+            setInvestors(JSON.parse(response.data.body));
+            // console.log("IN POST   ", companies)
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      } catch (error) {
+        throw error;
+      }
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
@@ -50,47 +87,12 @@ export default function Industries() {
     // E.g., call an API, filter data, etc.
   };
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
+  console.log("INVESTORS    !!!! ", investors)
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-
-        {/* <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Industries
-            </Typography>
-            <IconButton color="inherit">
-              <Button color="inherit">Log Out</Button>
-            </IconButton>
-          </Toolbar>
-        </AppBar> */}
 
         <Drawer variant="permanent" open={open}>
           <Toolbar
@@ -146,7 +148,7 @@ export default function Industries() {
                     // height: 500,
                   }}
                 >
-                  <SavedStartups title={'Top Startups'}/>
+                  <SavedStartups data={companies} title={'Top Startups'}/>
                 </Paper>
               </Grid>
 
@@ -163,7 +165,7 @@ export default function Industries() {
                     // height: 500,
                   }}
                 >
-                  <SavedStartups title={'Top Investors'}/>
+                  <SavedStartups data={investors} title={'Top Investors'}/>
                 </Paper>
               </Grid>
 
@@ -175,7 +177,6 @@ export default function Industries() {
             <Grid container spacing={4}>
             <News/>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>

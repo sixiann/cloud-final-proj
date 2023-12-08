@@ -44,11 +44,14 @@ export default function DataTable(props) {
 
   const handleSelectionChange = (newSelection) => {
     let allSelections = []
-    console.log(newSelection)
+    console.log("NEW SELECTIONS", newSelection)
     for (let i = 0; i < newSelection.length; i++) {
       allSelections.push(props.data[newSelection[i]-1])
     }
-    props.setCheckedRows(allSelections);
+    console.log("ALL SELECTIONS   ", newSelection)
+    // props.setCheckedRows(allSelections);
+
+    props.setCheckedRows(newSelection);
   };
 
 

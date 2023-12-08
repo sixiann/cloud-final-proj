@@ -51,7 +51,7 @@ const updateSavedStartup = async (startupId) => {
       feature: 'saved_startups',
       values: startupId
     }
-    const response = await axios.put(apiurl, body);
+    const response = await axios.post(apiurl, body);
     // const response = await axios.put(`${API_BASE_URL}/api/startups/${startupId}`, updatedData);
     // navigate("/companies");
     return;
