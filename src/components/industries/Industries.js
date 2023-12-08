@@ -18,7 +18,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { MainListItems  } from '../common/listItems';
 import Chart from './Chart';
+import ListData from './ListData';
 import SavedStartups from '../common/ListData';
+
 import SearchBar from '../common/SearchBar';
 import News from './News'
 import { AppBar, Drawer } from '../common/AppBar'
@@ -48,7 +50,6 @@ export default function Industries() {
         axios.post(url, requestBody)
           .then(response => {
             setCompanies(JSON.parse(response.data.body));
-            // console.log("IN POST   ", companies)
           })
           .catch(error => {
             console.error('Error:', error);
@@ -60,18 +61,18 @@ export default function Industries() {
       try {
         const requestBody = {
           searchQuery: searchValue,
-          category_list: [],
-          employee_count: '',
+          investor_types: [],
           region: '',
           total_funding: '',
           top: ''
         };
+
+
         const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/investors';
         axios.post(url, requestBody)
           .then(response => {
-            console.log(response)
+            console.log("FILTERED INVESTORS, ", JSON.parse(response.data.body))
             setInvestors(JSON.parse(response.data.body));
-            // console.log("IN POST   ", companies)
           })
           .catch(error => {
             console.error('Error:', error);
@@ -165,7 +166,7 @@ export default function Industries() {
                     // height: 500,
                   }}
                 >
-                  <SavedStartups data={investors} title={'Top Investors'}/>
+                  <ListData data={investors} title={'Top Investors'}/>
                 </Paper>
               </Grid>
 

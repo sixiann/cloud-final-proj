@@ -63,7 +63,6 @@ export default function Investors() {
         total_funding: funding
       };
 
-      console.log("REQUEST ", requestBody)
 
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/investors';
       axios.post(url, requestBody)
