@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
-import { mainListItems  } from '../common/listItems';
+import { MainListItems }  from '../common/listItems';
 import Chart from './Chart';
 import SavedStartups from '../common/ListData';
 import { AppBar, Drawer } from '../common/AppBar'
@@ -79,7 +79,7 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {MainListItems()}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

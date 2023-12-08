@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
-import { mainListItems  } from '../common/listItems';
+import { MainListItems  } from '../common/listItems';
 // import DataTable from './Table';
 import { AppBar, Drawer } from '../common/AppBar'
 import Button from '@mui/material/Button';
@@ -62,7 +62,7 @@ export default function News() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {MainListItems()}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

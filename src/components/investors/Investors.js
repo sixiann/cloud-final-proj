@@ -8,7 +8,7 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
-import { mainListItems  } from '../common/listItems';
+import { MainListItems  } from '../common/listItems';
 import DataTable from './Table';
 import { AppBar, Drawer } from '../common/AppBar'
 import SearchFilterBar from './SearchFilterBar';
@@ -109,7 +109,7 @@ export default function Investors() {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {MainListItems()}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

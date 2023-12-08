@@ -12,6 +12,7 @@ import EventIcon from '@mui/icons-material/Event';
 import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import LockIcon from '@mui/icons-material/Lock';
@@ -25,12 +26,17 @@ const loggedIn = () => {
   return user && user !== 'undefined';
 }
 
-const logOutUser = () => {
-  resetUserSession();
-}
+export function MainListItems() {
 
-export const mainListItems = (
-  <React.Fragment>
+  const [loginState, setLoginState] = useState(loggedIn());
+
+  const logOutUser = () => {
+    resetUserSession();
+    setLoginState(false)
+  }
+
+  return (
+    <React.Fragment>
     {
       true ?
       <ListItemButton component={Link} to="/dashboard">
@@ -72,9 +78,9 @@ export const mainListItems = (
       <ListItemText primary="News" />
     </ListItemButton>
 
-    { !loggedIn ? <hr/> : <br/> }
+    { !loginState ? <hr/> : <br/> }
 
-    { !loggedIn ?
+    { !loginState ?
         <ListItemButton component={Link} to="/signin">
           <ListItemIcon>
             <LockOpenIcon />
@@ -89,7 +95,7 @@ export const mainListItems = (
           <ListItemText primary="Sign Out" />
         </ListItemButton>
     }
-    { !loggedIn ?
+    { !loginState ?
         <ListItemButton component={Link} to="/register">
           <ListItemIcon>
             <HowToRegIcon />
@@ -102,4 +108,5 @@ export const mainListItems = (
     }
 
   </React.Fragment>
-);
+  );
+}

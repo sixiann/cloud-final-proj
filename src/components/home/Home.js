@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
-import { mainListItems  } from '../common/listItems';
+import { MainListItems  } from '../common/listItems';
 import Card from '../common/Card'
 import { AppBar, Drawer } from '../common/AppBar'
 import ListItemButton from '@mui/material/ListItemButton';
@@ -64,7 +64,7 @@ export default function Home(props) {
           </Toolbar>
           <Divider />
           <List component="nav">
-            {mainListItems}
+            {MainListItems()}
             <Divider sx={{ my: 1 }} />
           </List>
         </Drawer>

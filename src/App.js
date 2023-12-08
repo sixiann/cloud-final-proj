@@ -42,7 +42,7 @@ const App = () => {
     };
 
     fetchData();
-  }, []);
+  }, [isLoggedIn]);
 
   const logOutUser = () => {
     resetUserSession();

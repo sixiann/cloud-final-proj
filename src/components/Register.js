@@ -72,6 +72,7 @@ const Register = () => {
 
         axios.post(registerUrl, requestBody, requestConfig).then(response => {
             setErrorMsg('Registration Successful');
+            navigate("/signin");
         }).catch(error => {
             if (error.response.status == 401 || error.response.status === 403) {
                 setErrorMsg(error.response.data.message);

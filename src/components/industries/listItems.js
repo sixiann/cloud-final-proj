@@ -12,7 +12,7 @@ import AlignHorizontalLeftIcon from '@mui/icons-material/AlignHorizontalLeft';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import HomeIcon from '@mui/icons-material/Home';
 
-export const mainListItems = (
+export const MainListItems = (
   <React.Fragment>
     {/* <ListItemButton>
       <ListItemIcon>
