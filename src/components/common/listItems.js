@@ -90,7 +90,7 @@ export function MainListItems() {
         :
         <ListItemButton component={Link} to="/" onClick={logOutUser}>
           <ListItemIcon>
-            <LockOpenIcon />
+            <LockIcon />
           </ListItemIcon>
           <ListItemText primary="Sign Out" />
         </ListItemButton>
