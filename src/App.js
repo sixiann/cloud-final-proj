@@ -24,7 +24,7 @@ import News from './components/news/News'
 // import { useNavigate } from "react-router-dom";
 import { getUser, resetUserSession } from './service/AuthService';
 
-
+// testing
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [name, setName] = React.useState('');
