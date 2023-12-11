@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, IconButton, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const SearchBar = ({ placeholder, onChange }) => {
+const SearchBar = ({ placeholder, onChange, onButtonClick }) => {
   return (
     <TextField
       variant="outlined"
@@ -13,7 +13,7 @@ const SearchBar = ({ placeholder, onChange }) => {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton>
+            <IconButton onClick={(event)=>onButtonClick(event)}>
               <SearchIcon />
             </IconButton>
           </InputAdornment>
