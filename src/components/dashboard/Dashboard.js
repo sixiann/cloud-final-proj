@@ -15,6 +15,18 @@ import Chart from './Chart';
 import SavedStartups from '../common/ListData';
 import { AppBar, Drawer } from '../common/AppBar'
 import axios from 'axios';
+import { getUser } from '../../service/AuthService';
+// import { useNavigate } from "react-router-dom";
+
+
+const getUsername = () => {
+  const user = getUser();
+  if (user) {
+    return user.username;
+  } else {
+    return '';
+  }
+}
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -31,29 +43,44 @@ export default function Dashboard() {
   React.useEffect(() => {
     //su
     //inv for investors
+    try {
 
-    //CHANGE TO SAVED STARTUPS API CALL
-    // ${userid}
-    axios.get('https://usixt8hpf2.execute-api.us-east-1.amazonaws.com/DEV/data')
-      .then(response => {
-        const companiesData = response.data;
-        setStartups(JSON.parse(companiesData.body));
-        // console.log("DATA:", JSON.parse(companiesData.body) )
-      })
-      .catch(error => {
-        console.error('Error fetching all companies:', error);
-      });
+      const requestBody = {
+        username: getUsername(),
+        feature: "saved_startups"
+      };
 
-    //CHANGE TO SAVED INVESTORS API CALL
-    axios.get('https://usixt8hpf2.execute-api.us-east-1.amazonaws.com/DEV/data')
-      .then(response => {
-        const data = response.data;
-        setInvestors(JSON.parse(data.body));
-        // console.log("DATA:", JSON.parse(companiesData.body) )
-      })
-      .catch(error => {
-        console.error('Error fetching all companies:', error);
-      });
+      const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/users/data';
+      axios.post(url, requestBody)
+        .then(response => {
+          console.log("RESPONSE   ", response)
+          setStartups(JSON.parse(response.data.body));
+
+
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    } catch (error) {
+      throw error;
+    }
+
+    try {
+        const requestBody = {
+          username: getUsername(),
+          feature: "saved_investors"
+        };
+        const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/users/data';
+        axios.post(url, requestBody)
+          .then(response => {
+            setInvestors(JSON.parse(response.data.body));
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      } catch (error) {
+        throw error;
+      }
 
     //AXIOS CALL TO DELETE SAVED STARTUP
     //AXIOS CALL TO DELETE SAVED INVESTOR
@@ -115,7 +142,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <SavedStartups title={'Saved Startups'} isDashboard={true}/>
+                  <SavedStartups title={'Saved Startups'} isDashboard={true} data = {startups}/>
                 </Paper>
               </Grid>
               {/* Startups Chart */}
@@ -133,14 +160,6 @@ export default function Dashboard() {
                 </Paper>
               </Grid>
 
-              {/* Saved Startups */}
-              {/* <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <SavedStartups />
-                </Paper>
-              </Grid> */}
-
-
               {/* Investors Chart */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
@@ -152,7 +171,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <Chart title={'Saved Investors'}/>
+                  <Chart title={'Investors'}/>
                 </Paper>
               </Grid>
 
@@ -167,7 +186,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <SavedStartups title={'Saved Investors'}/>
+                  <SavedStartups title={'Saved Investors'} isDashboard={true} data={investors}/>
                 </Paper>
               </Grid>
 
