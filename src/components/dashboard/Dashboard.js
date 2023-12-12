@@ -16,8 +16,7 @@ import SavedStartups from '../common/ListData';
 import { AppBar, Drawer } from '../common/AppBar'
 import axios from 'axios';
 import { getUser } from '../../service/AuthService';
-// import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const getUsername = () => {
   const user = getUser();
@@ -32,6 +31,30 @@ const getUsername = () => {
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+
+  const navigate = useNavigate();
+
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [username, setUsername] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  React.useEffect(() => {
+    const fetchData = () => {
+      const user = getUser();
+      if (user) {
+        setName(user.name || '');
+        setUsername(user.username || '');
+        setEmail(user.email || '');
+        setIsLoggedIn(true);
+      }
+      if (!user) {
+        navigate("/signin");
+      }
+    };
+
+    fetchData();
+  }, [isLoggedIn]);
+
   const [open, setOpen] = React.useState(true);
   const [startups, setStartups] = React.useState([])
   const [investors, setInvestors] = React.useState([])
@@ -128,7 +151,7 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Typography variant="h2" gutterBottom>
-            Welcome, !
+            Welcome, {name}!
           </Typography>
             <Grid container spacing={3}>
 
