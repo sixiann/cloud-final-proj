@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { getUser } from '../../service/AuthService';
-// import { useNavigate } from "react-router-dom";
-
 
 const getUsername = () => {
   const user = getUser();
@@ -12,33 +10,31 @@ const getUsername = () => {
   }
 }
 
-// GET companies based on industry
-const getFilteredCompanies = async (searchQuery, industryId, employeeCount, region, funding) => {
-  // console.log("filters   : ", searchQuery, industryId, employeeCount, region, funding)
-  try {
-    const requestBody = {
-      searchQuery: searchQuery,
-      category_list: !industryId.length ? [] :[industryId],
-      employee_count: employeeCount,
-      region: region,
-      total_funding: funding
-    };
+// // GET companies based on industry
+// const getFilteredCompanies = async (searchQuery, industryId, employeeCount, region, funding) => {
 
-    const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
+//   try {
+//     const requestBody = {
+//       searchQuery: searchQuery,
+//       category_list: !industryId.length ? [] :[industryId],
+//       employee_count: employeeCount,
+//       region: region,
+//       total_funding: funding
+//     };
 
-    axios.post(url, requestBody)
-      .then(response => {
-        // console.log('Response:', response.data);
-        console.log("IN AXIOS   :  ", response.data.body)
-        return response.data.body;
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  } catch (error) {
-    throw error;
-  }
-};
+//     const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
+
+//     axios.post(url, requestBody)
+//       .then(response => {
+//         return response.data.body;
+//       })
+//       .catch(error => {
+//         console.error('Error:', error);
+//       });
+//   } catch (error) {
+//     throw error;
+//   }
+// };
 
 // PUT saved startup
 const updateSavedStartup = async (startupId) => {
@@ -61,6 +57,6 @@ const updateSavedStartup = async (startupId) => {
 };
 
 export {
-  getFilteredCompanies,
+  // getFilteredCompanies,
   updateSavedStartup,
 };

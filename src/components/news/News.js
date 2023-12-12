@@ -24,11 +24,6 @@ export default function News() {
   const [news, setNews] = React.useState(true);
 
   React.useEffect(() => {
-    // Fetch all companies when the component mounts
-
-    //su
-    //inv for investors
-    // --> /all-companies
 
     axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-news')
       .then(response => {
@@ -83,9 +78,8 @@ export default function News() {
             <Typography component="h2" variant="h6" color="primary" gutterBottom>
               News
             </Typography>
-            {/* <Articles/> */}
             <Grid container spacing={4}>
-            <Articles/>
+            <Articles data = {news}/>
             </Grid>
 
           </Container>

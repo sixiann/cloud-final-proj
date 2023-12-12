@@ -22,7 +22,7 @@ import { getUser, resetUserSession } from '../../service/AuthService';
 
 const loggedIn = () => {
   const user = getUser();
-  console.log(user, 'testtt', user && user !== 'undefined');
+  // console.log(user, 'testtt', user && user !== 'undefined');
   return user && user !== 'undefined';
 }
 

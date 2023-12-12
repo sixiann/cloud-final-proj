@@ -13,6 +13,8 @@ import DataTable from './Table';
 import { AppBar, Drawer } from '../common/AppBar'
 import SearchFilterBar from './SearchFilterBar';
 import axios from 'axios';
+import {
+  updateSavedInvestor} from './requests'
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -29,15 +31,10 @@ export default function Investors() {
   const [selectedRows, setSelectedRows] =  React.useState(null);
   const [updateResult, setUpdateResult] = React.useState('');
 
-  // const toggleDrawer = () => {
-  //   setOpen(!open);
-  // };
-
   React.useEffect(() => {
     axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-investors')
       .then(response => {
         const data = response.data;
-        // console.log("INVESTORS", JSON.parse(data.body))
         setInvestors(JSON.parse(data.body));
       })
       .catch(error => {
@@ -67,7 +64,7 @@ export default function Investors() {
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/investors';
       axios.post(url, requestBody)
         .then(response => {
-          console.log("FILTERED INVESTORS, ", JSON.parse(response.data.body))
+          // console.log("FILTERED INVESTORS, ", JSON.parse(response.data.body))
           setInvestors(JSON.parse(response.data.body));
         })
         .catch(error => {
@@ -78,10 +75,11 @@ export default function Investors() {
     }
   };
 
+
   const saveData = async () => {
     try {
       // const result = await updateSavedStartup(selectedRows);
-      const result = [] // CHANGE ONCE IT'S SET UP
+      const result = await updateSavedInvestor(selectedRows)
       setUpdateResult(result);
     } catch (error) {
       console.error('Error updating startup:', error);

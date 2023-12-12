@@ -41,8 +41,7 @@ export default function Dashboard() {
   };
 
   React.useEffect(() => {
-    //su
-    //inv for investors
+
     try {
 
       const requestBody = {
@@ -73,6 +72,7 @@ export default function Dashboard() {
         const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/users/data';
         axios.post(url, requestBody)
           .then(response => {
+            console.log("DASHBOARD INVESTOR", response)
             setInvestors(JSON.parse(response.data.body));
           })
           .catch(error => {
@@ -85,6 +85,8 @@ export default function Dashboard() {
     //AXIOS CALL TO DELETE SAVED STARTUP
     //AXIOS CALL TO DELETE SAVED INVESTOR
   }, []);
+
+  console.log("INVESTORS  ", investors)
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -156,7 +158,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <Chart title={'Startups'}/>
+                  <Chart title={'Startups'} data={startups}/>
                 </Paper>
               </Grid>
 

@@ -58,7 +58,6 @@ export default function Companies() {
   };
 
   const getFilteredCompanies = async (searchQuery, industryId, employeeCount, region, funding) => {
-    // console.log("filters   : ", searchQuery, industryId, employeeCount, region, funding)
     try {
       const requestBody = {
         searchQuery: searchQuery,
@@ -68,7 +67,6 @@ export default function Companies() {
         total_funding: funding
       };
 
-      // console.log("REQUEST ", requestBody)
 
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
       axios.post(url, requestBody)
@@ -84,7 +82,6 @@ export default function Companies() {
   };
 
   const saveData = async () => {
-    // console.log("UPDATE RESULT   ", selectedRows)
     try {
       const result = await updateSavedStartup(selectedRows);
       setUpdateResult(result);
