@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Link, List } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 
 
 function createData(id, name, description, logo) {
@@ -88,12 +89,14 @@ const SavedStartups = (props) => {
         }}
       >
         {generateFive(data, isDashboard)}
+        {data && data.length ?
         <Link color="primary" href="#" onClick={(event) => {
           event.preventDefault();
           handleOpenDialog();
         }} sx={{ mt: 3 }}>
           See More {title}
-        </Link>
+        </Link> : <CircularProgress />
+        }
       </List>
 
       {/* Dialog Component */}
@@ -101,6 +104,7 @@ const SavedStartups = (props) => {
         <DialogTitle>All {title}</DialogTitle>
         <DialogContent>
         {generateListItems(data, isDashboard)}
+        {data && data.length ? generateListItems(data, isDashboard) : <div>None Saved</div>}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Close</Button>

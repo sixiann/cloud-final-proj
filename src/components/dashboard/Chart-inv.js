@@ -44,8 +44,9 @@ const Chart = (props) => {
   const processData = (preprocessedData) => {
     const categoryCounts = {};
     if (preprocessedData && preprocessedData.length){
+      console.log(preprocessedData)
       preprocessedData.forEach(item => {
-        let category = item.category_list
+        let category = item.investor_types
         if (category in categoryCounts) {
           categoryCounts[category]++;
         } else {

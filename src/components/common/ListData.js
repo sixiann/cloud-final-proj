@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Link, List } from '@mui/material';
 import axios from 'axios';
 import { getUser } from '../../service/AuthService';
+import { CircularProgress } from '@mui/material';
 
 const getUsername = () => {
   const user = getUser();
@@ -128,14 +129,14 @@ const SavedStartups = (props) => {
           overflow: 'auto',
         }}
       >
-        {data && data.length ? generateFive(data, isDashboard, getAllData) : <div>None Saved</div>}
+        {data && data.length ? generateFive(data, isDashboard, getAllData) : <div></div>}
         {data && data.length ?
         <Link color="primary" href="#" onClick={(event) => {
           event.preventDefault();
           handleOpenDialog();
         }} sx={{ mt: 3 }}>
           See More {title}
-        </Link> : <div></div>
+        </Link> : <CircularProgress />
         }
       </List>
 

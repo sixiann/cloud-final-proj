@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import { MainListItems }  from '../common/listItems';
 import Chart from './Chart';
+import ChartInv from './Chart-inv';
 import SavedStartups from '../common/ListData';
 import { AppBar, Drawer } from '../common/AppBar'
 import axios from 'axios';
@@ -193,7 +194,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <Chart title={'Investors'}/>
+                  <ChartInv title={'Investors'} data={investors}/>
                 </Paper>
               </Grid>
 
