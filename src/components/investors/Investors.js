@@ -79,6 +79,7 @@ export default function Investors() {
   const saveData = async () => {
     try {
       // const result = await updateSavedStartup(selectedRows);
+      // console.log('selected rows   ', selectedRows)
       const result = await updateSavedInvestor(selectedRows)
       setUpdateResult(result);
     } catch (error) {

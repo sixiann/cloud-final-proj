@@ -41,7 +41,10 @@ export default function Dashboard() {
   };
 
   React.useEffect(() => {
+    getAllData()
+  }, []);
 
+  const getAllData = () => {
     try {
 
       const requestBody = {
@@ -52,7 +55,7 @@ export default function Dashboard() {
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/users/data';
       axios.post(url, requestBody)
         .then(response => {
-          console.log("RESPONSE   ", response)
+          // console.log("RESPONSE   ", response)
           setStartups(JSON.parse(response.data.body));
 
 
@@ -72,7 +75,6 @@ export default function Dashboard() {
         const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/users/data';
         axios.post(url, requestBody)
           .then(response => {
-            console.log("DASHBOARD INVESTOR", response)
             setInvestors(JSON.parse(response.data.body));
           })
           .catch(error => {
@@ -82,12 +84,7 @@ export default function Dashboard() {
         throw error;
       }
 
-    //AXIOS CALL TO DELETE SAVED STARTUP
-    //AXIOS CALL TO DELETE SAVED INVESTOR
-  }, []);
-
-  console.log("INVESTORS  ", investors)
-
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -128,7 +125,7 @@ export default function Dashboard() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Typography variant="h2" gutterBottom>
-            Welcome, !
+            Welcome,!
           </Typography>
             <Grid container spacing={3}>
 
@@ -144,7 +141,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <SavedStartups title={'Saved Startups'} isDashboard={true} data = {startups}/>
+                  <SavedStartups getAllData={getAllData} title={'Saved Startups'} isDashboard={true} data = {startups}/>
                 </Paper>
               </Grid>
               {/* Startups Chart */}
@@ -188,7 +185,7 @@ export default function Dashboard() {
                     // width: '100%'
                   }}
                 >
-                  <SavedStartups title={'Saved Investors'} isDashboard={true} data={investors}/>
+                  <SavedStartups getAllData={getAllData} title={'Saved Investors'} isDashboard={true} data={investors}/>
                 </Paper>
               </Grid>
 
