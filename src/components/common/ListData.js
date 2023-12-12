@@ -27,10 +27,17 @@ function generateListItems(rows, isDashboard, getAllData) {
       <ListItemAvatar>
         <Avatar alt={row.name} src={row.logo} />
       </ListItemAvatar>
-      <ListItemText
-        primary={row.name}
-        secondary={row.short_description}
-      />
+      {
+          row.su ?
+          <ListItemText
+            primary={row.name}
+            secondary={row.short_description}
+          />:
+          <ListItemText
+            primary={row.name}
+            secondary={row.domain}
+          />
+        }
       {
         isDashboard ?
         <IconButton edge="end" aria-label="delete" onClick={()=>deleteItem(row, getAllData)}>

@@ -79,7 +79,6 @@ export default function Dashboard() {
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/users/data';
       axios.post(url, requestBody)
         .then(response => {
-          // console.log("RESPONSE   ", response)
           setStartups(JSON.parse(response.data.body));
 
 
