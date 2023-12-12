@@ -5,14 +5,9 @@ import Box from '@mui/material/Box';
 
 
 
-
-// function createData(id, title, description, image) {
-//   return { id, title, description, image };
-// }
-
 function generateListItems(rows) {
   return rows.map((row) => (
-    <Card id={row.id} title={row.title} description={row.summary} image={row.image_url} link={row.image_url}/>
+    <Card id={row.id} title={row.title} description={row.summary} image={row.image_url} link={row.article_link}/>
       ))
 
 }

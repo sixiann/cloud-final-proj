@@ -34,10 +34,19 @@ export default function Industries() {
   const [searchValue, setSearchValue] = React.useState('');
   const [companies, setCompanies] = React.useState([]);
   const [investors, setInvestors] = React.useState([]);
+  const [news, setNews] = React.useState([]);
 
 
   React.useEffect(() => {
-      getAllData()
+      getAllData();
+      axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-news')
+      .then(response => {
+        const data = response.data;
+        setNews(JSON.parse(data.body));
+      })
+      .catch(error => {
+        console.error('Error fetching all news:', error);
+      });
   }, []);
 
   const getAllData = () => {
@@ -225,7 +234,7 @@ export default function Industries() {
                 The Latest
               </Typography>
             <Grid container spacing={4}>
-            <News/>
+            <News data={news}/>
             </Grid>
           </Container>
         </Box>

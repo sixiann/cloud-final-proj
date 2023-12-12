@@ -1,49 +1,38 @@
 import * as React from 'react';
 import Card from '../common/Card'
+import { CircularProgress } from '@mui/material';
+import Box from '@mui/material/Box';
 
-
-
-function createData(id, title, description, image) {
-  return { id, title, description, image };
-}
 
 function generateListItems(rows) {
+  console.log("ROWS", rows)
   return rows.map((row) => (
     // <ListItem key={row.id} alignItems="flex-start">
 
-      <Card id={row.id} title={row.title} description={row.description} image={row.image}/>
+    <Card id={row.id} title={row.title} description={row.summary} image={row.image_url} link={row.article_link}/>
     // </ListItem>
   ));
 }
 
-const rows = [
-  createData(0, 'Telegram is still leaking user IP addresses to contacts', 'November 17, 2023', 'icon1.png'),
-  createData(1, 'OpenAI debates when to release its AI-generated image detector', 'November 17, 2023', 'icon2.png'),
-  createData(2, 'Photon’s app for pro photographers lets you shoot and save to an external drive', 'November 17, 2023', 'icon3.png'),
-  createData(3, 'Google Meet now lets you apply a skin-smoothing effect with its new portrait touch-up mode', 'November 17, 2023', 'icon4.png')
-
-]
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 const News = (props) => {
-  const { title } = props;
+
   return (
 
     <React.Fragment>
-      {/* <Title>{title}</Title> */}
-      {/* <List
+       {props && props.data && props.data.length ? generateListItems(props.data)
+        : <Box
         sx={{
-          width: '100%',
-          bgcolor: 'background.paper',
-          maxHeight: 450, // Set maximum height here
-          overflow: 'auto', // Enable scrollbar when content exceeds maxHeight
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          width: '100vh' // This sets the height of the box to the full viewport height
         }}
-      > */}
-        {generateListItems(rows)}
-      {/* </List> */}
+      >
+        <CircularProgress />
+      </Box>}
+
     </React.Fragment>
   );
 }
