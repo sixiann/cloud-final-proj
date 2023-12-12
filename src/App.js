@@ -58,44 +58,6 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      {isLoggedIn && (
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              {/* Home */}
-            </Typography>
-            {/* <CustomLinkButton to="/signin" primary="Log In" /> */}
-            <IconButton color="inherit">
-              <ListItemButton component={Link} onClick={logOutUser}>
-                <ListItemText primary="Log Out" />
-              </ListItemButton>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-      )}
-
       <Routes>
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="/industries" element={<Industries isLoggedIn={isLoggedIn} />} />
