@@ -5,12 +5,9 @@ import Box from '@mui/material/Box';
 
 
 function generateListItems(rows) {
-  console.log("ROWS", rows)
   return rows.map((row) => (
-    // <ListItem key={row.id} alignItems="flex-start">
 
     <Card id={row.id} title={row.title} description={row.summary} image={row.image_url} link={row.article_link}/>
-    // </ListItem>
   ));
 }
 

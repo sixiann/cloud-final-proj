@@ -39,6 +39,7 @@ export default function Industries() {
 
   React.useEffect(() => {
       getAllData();
+      console.log("in use effect")
       axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-news')
       .then(response => {
         const data = response.data;
@@ -50,6 +51,7 @@ export default function Industries() {
   }, []);
 
   const getAllData = () => {
+    console.log("searchhhhh ", searchValue)
     try {
       const requestBody = {
         searchQuery: searchValue,
@@ -59,9 +61,12 @@ export default function Industries() {
         total_funding: '',
         top: ''
       };
+      console.log("req 1", requestBody)
+
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
       axios.post(url, requestBody)
         .then(response => {
+          console.log(" in companies response.data: ", JSON.parse(response.data.body))
           setCompanies(JSON.parse(response.data.body));
         })
         .catch(error => {
@@ -80,11 +85,14 @@ export default function Industries() {
         top: ''
       };
 
+      console.log("req 2", requestBody)
+
 
       const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/investors';
       axios.post(url, requestBody)
         .then(response => {
-          console.log("FILTERED INVESTORS, ", JSON.parse(response.data.body))
+          console.log(" in investors response.data: ", JSON.parse(response.data.body))
+
           setInvestors(JSON.parse(response.data.body));
         })
         .catch(error => {
@@ -97,56 +105,14 @@ export default function Industries() {
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
-    // Perform search/filter operations using the searchValue
-    // E.g., call an API, filter data, etc.
   };
 
   const onButtonClick = () => {
-    console.log(searchValue)
-    try {
-      const requestBody = {
-        searchQuery: searchValue,
-        category_list: [],
-        employee_count: '',
-        region: '',
-        total_funding: '',
-        top: ''
-      };
-      const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/companies';
-      axios.post(url, requestBody)
-        .then(response => {
-          setCompanies(JSON.parse(response.data.body));
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    } catch (error) {
-      throw error;
-    }
-
-    try {
-      const requestBody = {
-        searchQuery: searchValue,
-        investor_types: [],
-        region: '',
-        total_funding: '',
-        top: ''
-      };
-
-
-      const url = 'https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/investors';
-      axios.post(url, requestBody)
-        .then(response => {
-          // console.log("FILTERED INVESTORS, ", JSON.parse(response.data.body))
-          setInvestors(JSON.parse(response.data.body));
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-    } catch (error) {
-      throw error;
-    }
+    getAllData()
   }
+
+  // console.log("COMPANIES   : ", companies)
+  // console.log("INVESTORS  : ", investors)
 
   return (
     <ThemeProvider theme={defaultTheme}>
