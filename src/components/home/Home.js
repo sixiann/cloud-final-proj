@@ -19,7 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import CustomLinkButton from '../common/CustomLinkButton';
 
 
-const homepageText = 'StartupsNYC amplifies your startup journey with intuitive ecosystem mapping. It generates visualizations that complement your research and provide further insights into the NYC entreprneurship ecosystem.'
+const homepageText = 'StartupsNYC amplifies your startup journey with intuitive ecosystem mapping. It generates visualizations that complement your research and provide further insights into the NYC entrepreneurship ecosystem.'
 
 function Copyright(props) {
   return (
