@@ -40,6 +40,12 @@ function Copyright(props) {
 const Register = () => {
 
     const navigate = useNavigate();
+
+    const [newsletterChecked, setNewsletterChecked] = useState(true);
+
+    const handleCheckboxChange = (event) => {
+      setNewsletterChecked(event.target.checked);
+    };
   
     const [errorMsg, setErrorMsg] = useState(null);
   
@@ -67,8 +73,11 @@ const Register = () => {
             username: username,
             email: email,
             name: name,
-            password: password
+            password: password,
+            newsletter: newsletterChecked
         }
+
+        console.log(requestBody);
 
         axios.post(registerUrl, requestBody, requestConfig).then(response => {
             setErrorMsg('Registration Successful');
@@ -84,6 +93,7 @@ const Register = () => {
         console.log('submit the registration');
     }
 
+    console.log(newsletterChecked)
     return (
         <ThemeProvider theme={defaultTheme}>
           <Container component="main" maxWidth="xs">
@@ -142,6 +152,10 @@ const Register = () => {
                   type="password"
                   id="password"
                   autoComplete="current-password"
+                />
+                <FormControlLabel
+                  control={<Checkbox value="newsletter" color="primary" checked={newsletterChecked} onChange={handleCheckboxChange} />}
+                  label="Sign up for daily newsletter?"
                 />
                 <Button
                   type="submit"
