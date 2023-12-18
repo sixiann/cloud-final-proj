@@ -39,7 +39,7 @@ export default function Industries() {
 
   React.useEffect(() => {
       getAllData();
-      console.log("in use effect")
+      console.log("in use effect");
       axios.get('https://i0npk9dvld.execute-api.us-east-1.amazonaws.com/public/all-news')
       .then(response => {
         const data = response.data;
@@ -157,7 +157,7 @@ export default function Industries() {
           <Typography component="h2" variant="h6" color="primary" gutterBottom>
             Industries
           </Typography>
-            <SearchBar placeholder="Search..." onChange={handleSearchChange} onButtonClick={onButtonClick}/>
+            {/* <SearchBar placeholder="Search..." onChange={handleSearchChange} onButtonClick={onButtonClick}/> */}
             <Grid container spacing={3}>
               {/* Top Startups */}
 
