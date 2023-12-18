@@ -1,4 +1,5 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
@@ -11,12 +12,12 @@ phases:
 
 artifacts:
   files:
-    - 'dist/**/*'
+    - 'build/**/*'
     - 'package.json'
     - 'package-lock.json'
 
 post_build:
   commands:
-    - aws s3 cp ./dist/ s3://startups.nyc/ --recursive
+    - aws s3 cp ./build/ s3://startups.nyc/ --recursive
     - aws s3 cp ./package.json s3://startups.nyc/
     - aws s3 cp ./package-lock.json s3://startups.nyc/
