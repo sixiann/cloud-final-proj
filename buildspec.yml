@@ -8,9 +8,15 @@ phases:
   build:
     commands:
       - npm run build
+
 artifacts:
   files:
     - 'dist/**/*'
-    - 'node_modules**/*'
     - 'package.json'
     - 'package-lock.json'
+
+post_build:
+  commands:
+    - aws s3 cp ./dist/ s3://startups.nyc/ --recursive
+    - aws s3 cp ./package.json s3://startups.nyc/
+    - aws s3 cp ./package-lock.json s3://startups.nyc/
